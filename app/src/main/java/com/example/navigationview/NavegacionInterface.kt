@@ -14,7 +14,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.google.android.material.navigation.NavigationView
+import org.json.JSONArray
+import org.json.JSONObject
 import java.lang.Exception
 
 class NavegacionInterface : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -23,6 +29,8 @@ class NavegacionInterface : AppCompatActivity(), NavigationView.OnNavigationItem
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_navegacion_interface)
+        val url="https://62ff92289350a1e548e1bee5.mockapi.io/menu_Postgrado"
+        val cola = Volley.newRequestQueue(this)
 
         val bundle=intent.extras
         var toolbar: Toolbar =findViewById(R.id.toolbar_main)
@@ -43,23 +51,52 @@ class NavegacionInterface : AppCompatActivity(), NavigationView.OnNavigationItem
         if(bundle?.getString("rol")=="Administrador"){
             Toast.makeText(this,"Hola "+bundle?.getString("rol"), Toast.LENGTH_SHORT).show()
             imagenView.setImageResource(R.drawable.admin)
-            menu.add("Maestrias")
-            menu.add("Docentes")
-            menu.add("Estudiantes")
-            menu.add("Administración")
-            submenu=menu.addSubMenu("Horarios")
-            submenu.add("Horarios Docentes")
-            submenu.add("Horarios Asesorias")
-            submenu.add("Horarios Sustentaciones")
+            val stringRequest = StringRequest(
+                Request.Method.GET, url,
+                { response ->
+                    val listaMenu = JSONArray(response.toString());
+                    for(i in 0 until listaMenu.length()){
+                        val menuItem: JSONObject = listaMenu.getJSONObject(i);
+                        menu.add(menuItem.getString("opc01"))
+                        menu.add(menuItem.getString("opc02"))
+                        menu.add(menuItem.getString("opc03"))
+                        menu.add(menuItem.getString("opc04"))
+                        submenu=menu.addSubMenu(menuItem.getString("opc05"))
+                        submenu.add(menuItem.getString("opc06"))
+                        submenu.add(menuItem.getString("opc07"))
+                        submenu.add(menuItem.getString("opc08"))
+
+                    }
+                },
+                {
+                    Toast.makeText(applicationContext, "Ocurrio un error", Toast.LENGTH_SHORT).show()
+                })
+            cola.add(stringRequest)
+
+
         }else if (bundle?.getString("rol")=="User"){
             Toast.makeText(this,"Hola "+bundle?.getString("usuario"), Toast.LENGTH_SHORT).show()
             imagenView.setImageResource(R.drawable.user)
-            menu.add("Docentes")
-            menu.add("Estudiantes")
-            submenu=menu.addSubMenu("Horarios")
-            menu.add("Horarios Docentes")
-            submenu.add("Horarios Asesorias")
-            submenu.add("Horarios Sustentaciones")
+            val stringRequest = StringRequest(
+                Request.Method.GET, url,
+                { response ->
+                    val listaMenu = JSONArray(response.toString());
+                    for(i in 0 until listaMenu.length()){
+                        val menuItem: JSONObject = listaMenu.getJSONObject(i);
+                        menu.add(menuItem.getString("opc02"))
+                        menu.add(menuItem.getString("opc03"))
+                        submenu=menu.addSubMenu(menuItem.getString("opc05"))
+                        menu.add(menuItem.getString("opc06"))
+                        submenu.add(menuItem.getString("opc07"))
+                        submenu.add(menuItem.getString("opc08"))
+
+                    }
+                },
+                {
+                    Toast.makeText(applicationContext, "Ocurrio un error", Toast.LENGTH_SHORT).show()
+                })
+            cola.add(stringRequest)
+
         }
     }
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
