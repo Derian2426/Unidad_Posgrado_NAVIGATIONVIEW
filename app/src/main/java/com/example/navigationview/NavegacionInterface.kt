@@ -51,7 +51,7 @@ class NavegacionInterface : AppCompatActivity(), NavigationView.OnNavigationItem
             submenu.add("Horarios Docentes")
             submenu.add("Horarios Asesorias")
             submenu.add("Horarios Sustentaciones")
-        }else if (bundle?.getString("rol")=="user"){
+        }else if (bundle?.getString("rol")=="User"){
             Toast.makeText(this,"Hola "+bundle?.getString("usuario"), Toast.LENGTH_SHORT).show()
             imagenView.setImageResource(R.drawable.user)
             menu.add("Docentes")
