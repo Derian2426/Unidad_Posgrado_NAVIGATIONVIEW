@@ -12,4 +12,7 @@ Practica Navigation View
 ![image](https://user-images.githubusercontent.com/87103650/182465080-10dada34-5310-45ab-a39f-b3362d713cf7.png)
 6.-Se muestran diferentes Item
 ![image](https://user-images.githubusercontent.com/87103650/182465162-7509b06b-78c0-4c5c-bff0-0fffa53e3fcf.png)
+7.API USERS https://62ff92289350a1e548e1bee5.mockapi.io/users
+![image](https://user-images.githubusercontent.com/87103650/185643790-14e56877-510b-4660-9d98-790bee46e8a3.png)
+
 
