@@ -109,8 +109,14 @@ class NavegacionInterface : AppCompatActivity(), NavigationView.OnNavigationItem
                 fragment= Maestrias()
                 Toast.makeText(this,"Programas de maestrías", Toast.LENGTH_SHORT).show()
             }
-            "Docentes"-> Toast.makeText(this,"Docentes", Toast.LENGTH_SHORT).show()
-            "Administración"-> Toast.makeText(this,"Administración", Toast.LENGTH_SHORT).show()
+            "Docente"-> {
+                fragment= Docente()
+                Toast.makeText(this,"Docentes", Toast.LENGTH_SHORT).show()
+            }
+            "Administracion"-> {
+                fragment= Administracion()
+                Toast.makeText(this,"Administración", Toast.LENGTH_SHORT).show()
+            }
             "Horarios Docentes"-> Toast.makeText(this,"Horarios Docentes", Toast.LENGTH_SHORT).show()
             "Horarios Asesorias"-> Toast.makeText(this,"Horarios Asesorias", Toast.LENGTH_SHORT).show()
             "Horarios Sustentaciones"-> Toast.makeText(this,"Horarios Sustentaciones", Toast.LENGTH_SHORT).show()
